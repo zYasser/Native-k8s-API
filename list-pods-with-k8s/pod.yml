@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: list-pods
+spec:
+  serviceAccountName: test-acc
+  containers:
+    - name: list-pods
+      image: list-pods:latest
+      imagePullPolicy: Never
