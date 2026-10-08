@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crud-pods
+spec:
+  serviceAccountName: test-acc
+  restartPolicy: Never
+
+  containers:
+    - name: crud-pods
+      image: crud-pods:latest
+      imagePullPolicy: Never
