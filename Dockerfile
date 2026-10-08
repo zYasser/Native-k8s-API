@@ -15,9 +15,9 @@ RUN CGO_ENABLED=0 go build \
     -o /out/crud-pods \
     ./crud-pods
 
-# RUN CGO_ENABLED=0 go build \
-#     -o /out/delete-pod \
-#     ./delete-pod
+RUN CGO_ENABLED=0 go build \
+    -o /out/watch-pods \
+    ./watch-pods
 
 
 FROM gcr.io/distroless/static-debian12:nonroot AS list-pods
@@ -32,7 +32,7 @@ COPY --from=build /out/crud-pods /crud-pods
 ENTRYPOINT ["/crud-pods"]
 
 
-# FROM gcr.io/distroless/static-debian12:nonroot AS delete-pod
+FROM gcr.io/distroless/static-debian12:nonroot AS watch-pods
 
-# COPY --from=build /out/delete-pod /delete-pod
-# ENTRYPOINT ["/delete-pod"]
+COPY --from=build /out/watch-pods /watch-pods
+ENTRYPOINT ["/watch-pods"]
