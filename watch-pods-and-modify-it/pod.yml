@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: watch-pods-and-modify-it
+spec:
+  serviceAccountName: test-acc
+  containers:
+    - name: watch-pods-and-modify-it
+      image: watch-pods-and-modify-it:latest
+      imagePullPolicy: Never

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: empty-with-label
+  labels:
+    app: test
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: empty-without-label
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: empty-label-but-skip
+  labels:
+    app: skip
+spec:
+  containers:
+    - name: nginx
+      image: nginx
