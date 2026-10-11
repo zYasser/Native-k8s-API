@@ -10,7 +10,15 @@ RUN go mod download
 
 COPY . .
 
+FROM build-base AS compile-side-car
 
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    mkdir -p /out && \
+    CGO_ENABLED=0 go build \
+    -o /out/side-car \
+    ./side-car
+
+    
 FROM build-base AS compile-list-pods
 
 RUN --mount=type=cache,target=/root/.cache/go-build \
@@ -75,3 +83,11 @@ COPY --from=compile-watch-pods-and-modify-it \
     /watch-pods-and-modify-it
 
 ENTRYPOINT ["/watch-pods-and-modify-it"]
+
+FROM gcr.io/distroless/static-debian12:nonroot AS side-car
+
+COPY --from=compile-side-car \
+    /out/side-car \
+    /side-car
+
+ENTRYPOINT ["/side-car"]

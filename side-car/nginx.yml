@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-simple-server
+  labels:
+    side-car: inject
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      side-car: inject
+      app: nginx
+  template:
+    metadata:
+      labels:
+        side-car: inject
+        app: nginx
+    spec:
+      containers:
+        - name: nginx-simple-server
+          image: nginx
+          ports:
+            - containerPort: 80
